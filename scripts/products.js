@@ -9,6 +9,22 @@ const loadAllCategories = async () => {
         console.error('Error fetching categories: ', error);
     }
 }
+
+// show Loading Spinner
+const showLoading = () => {
+    const spinner = document.getElementById('spinner');
+    const categoryProductContainer = document.getElementById('categoryProductContainer');
+    spinner.classList.remove('hidden');
+    categoryProductContainer.classList.add('hidden');
+}
+
+// hide loading spinner
+const hideLoading = () => {
+    const spinner = document.getElementById('spinner');
+    const categoryProductContainer = document.getElementById('categoryProductContainer');
+    spinner.classList.add('hidden');
+    categoryProductContainer.classList.remove('hidden');
+}
 // Display all categories
 const displayCategories = categories => {
     // console.log(categories);
@@ -41,6 +57,7 @@ const displayCategories = categories => {
 
 // Load all poducts by category
 const loadAllProductsByCategory = async (category) => {
+    showLoading(); // show loading spinner
     try {
         const res = await fetch(`https://fakestoreapi.com/products/category/${category}`);
         const data = await res.json();
@@ -53,8 +70,10 @@ const loadAllProductsByCategory = async (category) => {
 
 // Display category products
 const displayCategoryProducts = allProducts => {
+    
     const categoryProductContainer = document.getElementById('categoryProductContainer');
     categoryProductContainer.innerHTML = ''; // clear the product container
+    
     allProducts.forEach(product => {
         const productCardDiv = document.createElement('div');
         productCardDiv.classList.add('card', 'bg-base-100', 'shadow-sm');
@@ -90,6 +109,7 @@ const displayCategoryProducts = allProducts => {
         `;
         categoryProductContainer.appendChild(productCardDiv);
     });
+    hideLoading(); // hide loading spinner after load the content
 }
 
 loadAllCategories();

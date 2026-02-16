@@ -15,12 +15,17 @@ const displayCategories = categories => {
     const categoryContainer = document.getElementById('categoryContainer');
     categories.forEach(category => {
         const categoryBtn = document.createElement('button');
+        categoryBtn.setAttribute('onclick', `loadAllProductsByCategory("${category}")`)
         categoryBtn.classList.add('btn', 'rounded-full', 'btn-outline', 'btn-primary');
         categoryBtn.textContent = `
             ${category}
         `;
         categoryContainer.appendChild(categoryBtn);
     });
+}
+// test function
+const testFunc = () => {
+    console.log('Category Button Clicked!!');
 }
 
 // Load all poducts by category
@@ -37,8 +42,8 @@ const loadAllProductsByCategory = async (category) => {
 
 // Display category products
 const displayCategoryProducts = allProducts => {
-    console.log(allProducts);
     const categoryProductContainer = document.getElementById('categoryProductContainer');
+    categoryProductContainer.innerHTML = ''; // clear the product container
     allProducts.forEach(product => {
         const productCardDiv = document.createElement('div');
         productCardDiv.classList.add('card', 'bg-base-100', 'shadow-sm');

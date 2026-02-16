@@ -15,17 +15,28 @@ const displayCategories = categories => {
     const categoryContainer = document.getElementById('categoryContainer');
     categories.forEach(category => {
         const categoryBtn = document.createElement('button');
-        categoryBtn.setAttribute('onclick', `loadAllProductsByCategory("${category}")`)
-        categoryBtn.classList.add('btn', 'rounded-full', 'btn-outline', 'btn-primary');
+        categoryBtn.addEventListener("click", () => {
+            // remove active class from all button
+        document.querySelectorAll('.category-btn')
+            .forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline');
+            });
+
+        // add active class on clicked button
+        categoryBtn.classList.remove('btn-outline');
+        categoryBtn.classList.add('btn-primary');
+
+        // load category wise products
+        loadAllProductsByCategory(category);
+    });
+
+        categoryBtn.classList.add('btn', 'rounded-full', 'btn-outline', 'btn-primary', 'category-btn');
         categoryBtn.textContent = `
             ${category}
         `;
         categoryContainer.appendChild(categoryBtn);
     });
-}
-// test function
-const testFunc = () => {
-    console.log('Category Button Clicked!!');
 }
 
 // Load all poducts by category
@@ -82,4 +93,4 @@ const displayCategoryProducts = allProducts => {
 }
 
 loadAllCategories();
-loadAllProductsByCategory("women's clothing");
+// loadAllProductsByCategory("women's clothing");

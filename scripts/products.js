@@ -73,7 +73,7 @@ const displayCategoryProducts = allProducts => {
                 <i class="fa-solid fa-star text-yellow-400"></i> ${product.rating.rate} (${product.rating.count})
               </div>
             </div>
-            <h2 class="card-title">${product.title.slice(0, 30)}...</h2>
+            <h2 class="card-title">${product.title.length > 30 ? product.title.slice(0, 30) + '...' : product.title}</h2>
             <p>
               ${product.description.slice(0, 100)}...
             </p>

@@ -32,9 +32,11 @@ const displayAllProducts = allProducts => {
                 <i class="fa-solid fa-star text-yellow-400"></i> ${product.rating.rate} (${product.rating.count})
               </div>
             </div>
-            <h2 class="card-title">${product.title}</h2>
+            <h2 class="card-title">${product.title.length > 30 ? product.title.slice(0, 30) + '...' :
+            product.title
+          }</h2>
             <p>
-              ${product.description}
+              ${product.description.slice(0, 200)}...
             </p>
             <h4 class="text-xl font-bold">$${product.price}</h4>
             <div class="flex gap-4 pt-8">

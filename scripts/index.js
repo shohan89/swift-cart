@@ -1,9 +1,10 @@
+let allProducts = [];
 // Load all poducts
 const loadAllProducts = async () => {
     try {
         const res = await fetch('https://fakestoreapi.com/products');
         const data = await res.json();
-        const allProducts = data;
+        allProducts = data;
         displayAllProducts(allProducts);
     } catch (error) {
         console.error('Error fetching all products: ', error);
@@ -56,13 +57,16 @@ const displayAllProducts = allProducts => {
 let cart = []; // Global cart
 const storeAddToCart = productId => {
 
+  // get the product via id
+  const product = allProducts.find(p => p.id === productId);
+
   // check if the product id already in the cart
-  if (cart.includes(productId)){
-    alert("This product is already added!!")
+  if (cart.some(product => product.id === productId)) {
+    alert("This product is already added!!");
     return; // stop execution here
   }
 
-  const updatedCart = [...cart, productId];
+  const updatedCart = [...cart, product];
   cart = updatedCart;
   // console.log(cart.length);
   updateCart(cart);

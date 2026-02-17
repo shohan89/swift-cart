@@ -134,9 +134,9 @@ const displayCategoryProducts = allProducts => {
         const productCardDiv = document.createElement('div');
         productCardDiv.classList.add('card', 'bg-base-100', 'shadow-sm');
         productCardDiv.innerHTML = `
-            <figure>
+            <figure class='h-96'>
             <img
-            class="h-[200px] md:h-[500px] w-full"
+              class='h-full'
               src=${product.image}
               alt=${product.title}
             />

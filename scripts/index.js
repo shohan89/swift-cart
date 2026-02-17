@@ -43,7 +43,7 @@ const displayAllProducts = allProducts => {
               <button onclick="loadProductDetails(${product.id})" class="btn btn-soft flex-1">
                 <i class="fa-regular fa-eye"></i> Details
               </button>
-              <button class="btn btn-primary flex-1">
+              <button onclick='storeAddToCart(${product.id})' class="btn btn-primary flex-1">
                 <i class="fa-solid fa-cart-shopping"></i> Add
               </button>
             </div>
@@ -51,6 +51,31 @@ const displayAllProducts = allProducts => {
         `;
         productsContainer.appendChild(productCardDiv);
     });
+}
+
+let cart = []; // Global cart
+const storeAddToCart = productId => {
+  // console.log('Clicked Item: ', productId);
+  const updatedCart = [...cart, productId];
+  cart = updatedCart;
+  // console.log(cart.length);
+  updateCart(cart);
+}
+
+// update the cart and show how many item added
+const updateCart = currentCart => {
+  const cartContainer = document.getElementById('cartContainer');
+  
+  if (currentCart.length === 0) {
+    return;
+  } else {
+      const cartBadgeDiv = document.createElement('div');
+    cartBadgeDiv.classList.add('badge', 'badge-primary', 'absolute', '-top-2', '-right-5');
+    cartBadgeDiv.innerHTML = `
+      <span>${currentCart.length}</span>
+    `;
+    cartContainer.appendChild(cartBadgeDiv);
+  }
 }
 
 // Load Product details

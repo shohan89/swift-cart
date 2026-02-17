@@ -1,10 +1,11 @@
+let allProducts = [];
 // Load all poducts
 const loadAllProducts = async () => {
     showLoading();
     try {
         const res = await fetch('https://fakestoreapi.com/products');
         const data = await res.json();
-        const allProducts = data;
+        allProducts = data;
         displayAllProducts(allProducts);
     } catch (error) {
         console.error('Error fetching all products: ', error);
@@ -71,7 +72,7 @@ const displayAllProducts = allProducts => {
               <button onclick="loadProductDetails(${product.id})" class="btn btn-soft flex-1">
                 <i class="fa-regular fa-eye"></i> Details
               </button>
-              <button class="btn btn-primary flex-1">
+              <button onclick='storeAddToCart(${product.id})' class="btn btn-primary flex-1">
                 <i class="fa-solid fa-cart-shopping"></i> Add
               </button>
             </div>
@@ -117,7 +118,7 @@ const loadAllProductsByCategory = async (category) => {
     try {
         const res = await fetch(`https://fakestoreapi.com/products/category/${category}`);
         const data = await res.json();
-        const allProducts = data;
+        allProducts = data;
         displayCategoryProducts(allProducts);
     } catch (error) {
         console.error('Error fetching all products: ', error);
@@ -157,7 +158,7 @@ const displayCategoryProducts = allProducts => {
               <button onclick="loadProductDetails(${product.id})" class="btn btn-soft flex-1">
                 <i class="fa-regular fa-eye"></i> Details
               </button>
-              <button class="btn btn-primary flex-1">
+              <button onclick='storeAddToCart(${product.id})' class="btn btn-primary flex-1">
                 <i class="fa-solid fa-cart-shopping"></i> Add
               </button>
             </div>
@@ -198,6 +199,41 @@ const displayProductDetailsModal = singleProduct => {
       </div>
   `;
   document.getElementById('product_details_modal').showModal();
+}
+
+let cart = []; // Global cart
+const storeAddToCart = productId => {
+
+  // get the product via id
+  const product = allProducts.find(p => p.id === productId);
+
+  // check if the product id already in the cart
+  if (cart.some(product => product.id === productId)) {
+    alert("This product is already added!!");
+    return; // stop execution here
+  }
+
+  const updatedCart = [...cart, product];
+  cart = updatedCart;
+  // console.log(cart.length);
+  updateCart(cart);
+}
+
+// update the cart and show how many item added
+const updateCart = currentCart => {
+  const cartContainer = document.getElementById('cartContainer');
+//   cartContainer.innerHTML = ""; // Clear previous badge
+
+  if (currentCart.length === 0) {
+    return;
+  }
+
+  const cartBadgeDiv = document.createElement('div');
+    cartBadgeDiv.classList.add('badge', 'badge-primary', 'absolute', '-top-2', '-right-5');
+    cartBadgeDiv.innerHTML = `
+      <span>${currentCart.length}</span>
+    `;
+    cartContainer.appendChild(cartBadgeDiv);
 }
 
 loadAllProducts();

@@ -55,7 +55,13 @@ const displayAllProducts = allProducts => {
 
 let cart = []; // Global cart
 const storeAddToCart = productId => {
-  // console.log('Clicked Item: ', productId);
+
+  // check if the product id already in the cart
+  if (cart.includes(productId)){
+    alert("This product is already added!!")
+    return; // stop execution here
+  }
+
   const updatedCart = [...cart, productId];
   cart = updatedCart;
   // console.log(cart.length);
@@ -65,19 +71,18 @@ const storeAddToCart = productId => {
 // update the cart and show how many item added
 const updateCart = currentCart => {
   const cartContainer = document.getElementById('cartContainer');
-  
+
   if (currentCart.length === 0) {
     return;
-  } else {
-      const cartBadgeDiv = document.createElement('div');
+  }
+
+  const cartBadgeDiv = document.createElement('div');
     cartBadgeDiv.classList.add('badge', 'badge-primary', 'absolute', '-top-2', '-right-5');
     cartBadgeDiv.innerHTML = `
       <span>${currentCart.length}</span>
     `;
     cartContainer.appendChild(cartBadgeDiv);
-  }
 }
-
 // Load Product details
 const loadProductDetails = async productId => {
   try {

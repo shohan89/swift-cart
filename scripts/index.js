@@ -5,7 +5,12 @@ const loadAllProducts = async () => {
         const res = await fetch('https://fakestoreapi.com/products');
         const data = await res.json();
         allProducts = data;
-        displayAllProducts(allProducts);
+        // get top 3 rated products
+        const topRatedProducts = allProducts
+            .sort((a, b) => b.rating.rate - a.rating.rate)
+            .slice(0, 3);
+
+        displayAllProducts(topRatedProducts);
     } catch (error) {
         console.error('Error fetching all products: ', error);
     }

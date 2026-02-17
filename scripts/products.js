@@ -229,7 +229,7 @@ const updateCart = currentCart => {
   }
 
   const cartBadgeDiv = document.createElement('div');
-    cartBadgeDiv.classList.add('badge', 'badge-primary', 'absolute', '-top-2', '-right-5');
+    cartBadgeDiv.classList.add('badge', 'badge-primary', 'absolute', 'top-0');
     cartBadgeDiv.innerHTML = `
       <span>${currentCart.length}</span>
     `;
